@@ -40,13 +40,13 @@ You may eventually want to run many instances of the same process in parallel. A
 ```
 
 ## Can't assign a property to object array
-If you have an array of processManager objects and you try to assign a single property to all of the objects, 
+If you have an array of processManager objects and try to assign a single property to all of the objects, 
 ```
 >> p(1) = processManager('id','google','command','ping www.google.com');
 >> p(2) = processManager('id','yahoo','command','ping www.yahoo.com');
 >> p.printStdout = false;
 ```
-will produce the following error
+you will get the following error
 ```
 Incorrect number of right hand side elements in dot name assignment.  Missing [] around left hand side is a likely cause.
 ```
