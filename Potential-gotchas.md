@@ -15,11 +15,12 @@ and delete those that with the name including `processManager-pollTimer`. Eg.,
 >> delete(timers)
 ```
 
-To avoid orphaned timers, always call `processManager.stop()` before deleting a running process.
+To avoid orphaned timers, always call `stop()` method before deleting a running process.
 
-Useful info 
-[here](http://stackoverflow.com/questions/10489996/matlab-objects-not-clearing-when-timers-are-involved),
-[here](http://stackoverflow.com/questions/9559849/matlab-object-destructor-not-running-when-listeners-are-involved),
-[here](http://stackoverflow.com/questions/7236649/matlab-run-object-destructor-when-using-clear),
-[here](http://www.mathworks.com/matlabcentral/answers/39858-clearing-handle-subclasses-with-timer-objects), and
-[here](http://www.mathworks.com/matlabcentral/newsreader/view_thread/306641).
+Useful info
+
+[http://stackoverflow.com/questions/10489996/matlab-objects-not-clearing-when-timers-are-involved](http://stackoverflow.com/questions/10489996/matlab-objects-not-clearing-when-timers-are-involved)
+[http://stackoverflow.com/questions/9559849/matlab-object-destructor-not-running-when-listeners-are-involved](http://stackoverflow.com/questions/9559849/matlab-object-destructor-not-running-when-listeners-are-involved)
+[http://stackoverflow.com/questions/7236649/matlab-run-object-destructor-when-using-clear](http://stackoverflow.com/questions/7236649/matlab-run-object-destructor-when-using-clear)
+[http://www.mathworks.com/matlabcentral/answers/39858-clearing-handle-subclasses-with-timer-objects](http://www.mathworks.com/matlabcentral/answers/39858-clearing-handle-subclasses-with-timer-objects)
+[http://www.mathworks.com/matlabcentral/newsreader/view_thread/306641](http://www.mathworks.com/matlabcentral/newsreader/view_thread/306641)
