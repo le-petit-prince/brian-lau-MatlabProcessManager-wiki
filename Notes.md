@@ -18,4 +18,5 @@ Polling is a terrible hack. Worse, it seems that when the process exits, the io 
 [Plexus](http://ted-gao.blogspot.fr/2012/03/executing-external-programs-via-java.html)
 
 # java in matlab
-(creating classes)[http://stackoverflow.com/questions/9520503/calling-java-from-matlab]
+[creating classes](http://stackoverflow.com/questions/9520503/calling-java-from-matlab)
+[envp](http://stackoverflow.com/questions/8607249/how-to-set-an-environment-variable-in-java-using-exec/8607281#8607281)
