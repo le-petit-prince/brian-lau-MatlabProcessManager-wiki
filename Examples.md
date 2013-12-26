@@ -1,4 +1,4 @@
-#Notification when a process finishes
+##Notification when a process finishes
 processManager objects issue a notification when their processes exit. This is useful, for example, when something should be done when a process finishes. Below is a minimal example of listening for the exit notification (download [exampleListener.m](https://github.com/brian-lau/MatlabProcessManager/blob/master/Tests/exampleListener.m)):
 ```
 function exampleListener
