@@ -3,6 +3,8 @@
 [fifo cell array for stdout and stderr?](http://www.weizmann.ac.il/home/eofek/matlab/General/q_fifo.m)
 
 #Creating a more general Java class that handles threading for the streams, using runtime.exec
+Polling is a terrible hack. Worse, it seems that when the process exits, the io streams are closed. Since polling is relatively infrequent, this means that io can be lost if the process exits in between polls. Really seems like I need to wrap up a Java class with threading to deal with the streams
+
 [multithreading matlab with java](http://www.osmanoglu.org/computing/1-matlabjavamultitreading)
 [processbuilder](http://thilosdevblog.wordpress.com/2011/11/21/proper-handling-of-the-processbuilder/)
 [race conditions](http://www.coderanch.com/t/605311/threads/java/race-condition-Runtime-exec)
