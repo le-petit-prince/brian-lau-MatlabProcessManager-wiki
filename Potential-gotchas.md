@@ -7,7 +7,10 @@ processManager uses a timer to periodically drain the io streams. The interval o
 
 ### Failure to cleanup timers
 #### Timer still running when projectManager goes out of scope
-Because the [timers](http://www.mathworks.com/help/matlab/ref/timerclass.html) used to drain the io streams are [user-managed](http://blogs.mathworks.com/loren/2008/07/29/understanding-object-cleanup/), it is possible to get into a situation where they are not properly cleaned up. This is due to the fact that the each timer holds a reference to the processManager object itself, which prevents the processManager destructor from getting called (a seemingly logical place to clean up the timers). For example, if a processManager object goes out of scope (say you clear it from the workspace while a process is still running), its timer(s) will continue to run even though you can no longer get to the processManager object. If you find yourself in this situation, find the problem timers:
+_This issue is mostly fixed as of version 0.4.0. However, it is still possible for objects referencing processManager objects to go out of scope and leave timers, and the method below for clearing them is still valid. This is an issue with how Matlab determines when to [delete handle objects with timer objects](http://www.mathworks.fr/matlabcentral/answers/39858-clearing-handle-subclasses-with-timer-objects
+)._
+
+Because the [timers](http://www.mathworks.com/help/matlab/ref/timerclass.html) used to drain the io streams are [user-managed](http://blogs.mathworks.com/loren/2008/07/29/understanding-object-cleanup/), it is possible to get into a situation where they are not properly cleaned up. If you find yourself in this situation (usually heralded by Matlab refusing when you attempt `clear classes`), find the problem timers:
 ```
 >> timers = timerfindall
 ```
@@ -16,7 +19,7 @@ and delete those that with the name including `processManager-pollTimer`. Eg.,
 >> delete(timers)
 ```
 
-To avoid orphaned timers, always call `stop()` method before deleting a running process.
+To avoid orphaned timers, make sure that objects referencing processManager objects clean up properly (ie., they call the `stop()` method on processManager instances.
 
 Useful info
 
