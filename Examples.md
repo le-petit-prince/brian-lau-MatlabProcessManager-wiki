@@ -21,4 +21,5 @@ function exitHandler(src,data)
    fprintf('\n');
 end
 ```
+Events are handled through the processState object, which each processManager instance instantiates.
 More information can be found in the [Matlab documentation](http://www.mathworks.com/help/matlab/matlab_oop/learning-to-use-events-and-listeners.html).
