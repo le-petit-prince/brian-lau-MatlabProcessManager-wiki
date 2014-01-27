@@ -5,6 +5,40 @@ processManager relies on the ability to call Java functions from within Matlab. 
 
 processManager uses a timer to periodically drain the io streams. The interval of this timer is controlled by the property `pollInterval`. If you find your Matlab process blocking indefinitely, it may be that your process is particularly verbose or your buffers are particularly small, and you might try setting `pollInterval` to a lower value (default = 0.5 sec).
 
+### Process fails to start
+In rare instances, processes can fail to start with the following error:
+```
+Java exception occurred: 
+java.io.IOException: Cannot run program "/Users/brian/Documents/Code/Repos/MatlabStan/Tests/anon_model" (in directory "/Users/brian/Documents/Code/Repos/MatlabStan/Tests"): error=24, Too many open files
+	at java.lang.ProcessBuilder.processException(ProcessBuilder.java:478)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:457)
+	at java.lang.Runtime.exec(Runtime.java:593)
+	at java.lang.Runtime.exec(Runtime.java:431)
+Caused by: java.io.IOException: error=24, Too many open files
+	at java.lang.UNIXProcess.forkAndExec(Native Method)
+	at java.lang.UNIXProcess.<init>(UNIXProcess.java:53)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:91)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:452)
+	... 2 more
+```
+This results from the JVM exceeding the maximum number of file descriptors. It can occur in cases where many processManager instances are created and running simultaneously. Although streams are closed properly, it seems to take some time before resources are really released. I only see this when unit-testing and running lots of processes back-to-back. Solution is to increase the maximum files open allowed per process, or just to wait a little while.
+```
+2011b
+Java 1.6.0_65-b14-462-11M4609 with Apple Inc. Java HotSpot(TM) 64-Bit Server VM mixed mode
+$ lsof -p 84020 | wc -l
+     820
+
+2012b
+Java 1.6.0_65-b14-462-11M4609 with Apple Inc. Java HotSpot(TM) 64-Bit Server VM mixed mode
+$ lsof -p 91747 | wc -l
+     860
+
+2013a
+Java 1.6.0_65-b14-462-11M4609 with Apple Inc. Java HotSpot(TM) 64-Bit Server VM mixed mode
+$ lsof -p 1508 | wc -l
+     832
+```
+
 ### Failure to cleanup timers
 #### Timer still running when projectManager goes out of scope
 _This issue is mostly fixed as of version 0.4.0. However, it is still possible for objects referencing processManager objects to go out of scope and leave timers, and the method below for clearing them is still valid. This is an issue with how Matlab determines when to [delete handle objects with timer objects](http://www.mathworks.fr/matlabcentral/answers/39858-clearing-handle-subclasses-with-timer-objects
