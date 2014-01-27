@@ -38,31 +38,13 @@ Java 1.6.0_65-b14-462-11M4609 with Apple Inc. Java HotSpot(TM) 64-Bit Server VM 
 $ lsof -p 1508 | wc -l
      832
 ```
-On OSX,
+On OSX, you can see the number of allowable open files per process
 ```
 $ launchctl limit
-	cpu         unlimited      unlimited      
-	filesize    unlimited      unlimited      
-	data        unlimited      unlimited      
-	stack       8388608        67104768       
-	core        0              unlimited      
-	rss         unlimited      unlimited      
-	memlock     unlimited      unlimited      
-	maxproc     709            1064           
 	maxfiles    256            unlimited
 
 $ ulimit -a
-core file size          (blocks, -c) 0
-data seg size           (kbytes, -d) unlimited
-file size               (blocks, -f) unlimited
-max locked memory       (kbytes, -l) unlimited
-max memory size         (kbytes, -m) unlimited
 open files                      (-n) 256
-pipe size            (512 bytes, -p) 1
-stack size              (kbytes, -s) 8192
-cpu time               (seconds, -t) unlimited
-max user processes              (-u) 709
-virtual memory          (kbytes, -v) unlimited	
 ```
 
 ### Failure to cleanup timers
