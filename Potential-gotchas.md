@@ -21,7 +21,7 @@ Caused by: java.io.IOException: error=24, Too many open files
 	at java.lang.ProcessBuilder.start(ProcessBuilder.java:452)
 	... 2 more
 ```
-This results from the JVM exceeding the maximum number of file descriptors. It can occur in cases where many processManager instances are created and running simultaneously. Although streams are closed properly, it seems to take some time before resources are really released. I only see this when unit-testing and running lots of processes back-to-back. Solution is to increase the maximum files open allowed per process, or just to wait a little while.
+This results from the JVM exceeding the maximum number of file descriptors (for each process, one is opened for each stream STDIN, STDOUT and STDERR). Although streams are explicitly closed, it seems to take some time before resources are really released. Errors can occur in cases where many processManager instances are created and running simultaneously. I only ever see this when unit-testing and running lots of processes back-to-back, and it seems to occur on older releases (eg,2011b) and not newer releases (eg, 2012b). A simple solution is to throttle back the processes so that garbage collection can process the stream closures that are backing up. If there is really a need for many processes, the more useful solution is to increase the maximum files open allowed per process.
 ```
 2011b
 Java 1.6.0_65-b14-462-11M4609 with Apple Inc. Java HotSpot(TM) 64-Bit Server VM mixed mode
