@@ -9,7 +9,7 @@ processManager uses a timer to periodically drain the io streams. The interval o
 In rare instances, processes can fail to start with the following error:
 ```
 Java exception occurred: 
-java.io.IOException: Cannot run program "/Users/brian/Documents/Code/Repos/MatlabStan/Tests/anon_model" (in directory "/Users/brian/Documents/Code/Repos/MatlabStan/Tests"): error=24, Too many open files
+java.io.IOException: Cannot run program "program" (in directory "dir"): error=24, Too many open files
 	at java.lang.ProcessBuilder.processException(ProcessBuilder.java:478)
 	at java.lang.ProcessBuilder.start(ProcessBuilder.java:457)
 	at java.lang.Runtime.exec(Runtime.java:593)
